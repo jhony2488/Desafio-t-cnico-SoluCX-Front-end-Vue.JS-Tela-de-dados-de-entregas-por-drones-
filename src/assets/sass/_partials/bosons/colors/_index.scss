@@ -1,0 +1,65 @@
+// Mapa de cores com suas variáções fixas
+$colors: (
+  colorwhite: $color-white,
+  colorinkprimary: $color-ink-primary,
+  colorblue: $color-blue,
+  colorgreen: $color-green,
+  colorred: $color-red,
+  coloryellow: $color-yellow,
+  colorpurple: $color-purple,
+  colorteal: $color-teal,
+  colorinklightprimary: $color-ink-light-primary,
+  colorinklightsecundary: $color-ink-light-secundary,
+  colorinklighttertiary: $color-ink-light-tertiary,
+  colorbluelightprimary: $color-blue-light-primary,
+  colorbluelightsecundary: $color-blue-light-secundary,
+  colorbluelighttertiary: $color-blue-light-tertiary,
+  colorbluelightquarterly: $color-blue-light-quarterly,
+  colorgreenlightprimary: $color-green-light-primary,
+  colorgreenlightsecundary: $color-green-light-secundary,
+  colorgreenlighttertiary: $color-green-light-tertiary,
+  colorgreenlightquarterly: $color-green-light-quarterly,
+  colorredlightprimary: $color-red-light-primary,
+  colorredlight-secundary: $color-red-light-secundary,
+  colorredlighttertiary: $color-red-light-tertiary,
+  colorredlightquarterly: $color-red-light-quarterly,
+  coloryellowlightprimary: $color-yellow-light-primary,
+  coloryellowlightsecundary: $color-yellow-light-secundary,
+  colorpurplelightprimary: $color-purple-light-primary,
+  colorpurplelightsecundary: $color-purple-light-secundary,
+  colorteallightprimary: $color-teal-light-primary,
+  colorteallightsecundary: $color-teal-light-secundary,
+  colorwhitedarkprimary: $color-white-dark-primary,
+  colorwhitedarksecundary: $color-white-dark-secundary,
+  colorwhitedarktertiary: $color-white-dark-tertiary,
+  colorwhitedarkquarterly: $color-white-dark-quarterly,
+  colorbluedarkprimary: $color-blue-dark-primary,
+  colorbluedarksecundary: $color-blue-dark-secundary,
+  colorgreendarkprimary: $color-green-dark-primary,
+  colorgreendarksecundary: $color-green-dark-secundary,
+  colorreddarkprimary: $color-red-dark-primary,
+  colorreddarksecundary: $color-red-dark-secundary,
+  coloryellowdarkprimary: $color-yellow-dark-primary,
+  coloryellowdarksecundary: $color-yellow-dark-secundary,
+  colorpurpledarkprimary: $color-purple-dark-primary,
+  colorpurpledarksecundary: $color-purple-dark-secundary,
+  colortealdarkprimary: $color-teal-dark-primary,
+  colortealdarksecundary: $color-teal-dark-secundary,
+) !default;
+
+// Função de leitura de mapa
+@function color($color, $complementary: null) {
+  @if map-has-key($colors, $color) {
+    $type: map-get($colors, $color);
+    @if $complementary == null {
+      @if type-of($type) == map {
+        @return map-get(map-get($colors, $color), "base");
+      } @else {
+        @return map-get($colors, $color);
+      }
+    } @else {
+      @return map-get(map-get($colors, $color), $complementary);
+    }
+  }
+  @return #0000;
+}
