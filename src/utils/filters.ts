@@ -1,11 +1,4 @@
-/* eslint-disable no-return-assign */
-/* eslint-disable prettier/prettier */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable eqeqeq */
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-/* eslint-disable import/prefer-default-export */
-/* eslint-disable class-methods-use-this */
-/* eslint-disable @typescript-eslint/no-empty-function */
+/* eslint-disable */
 
 interface dronesInterface {
   id: number
@@ -113,37 +106,15 @@ class Filters {
   }
 
   async mergeDicesInGet(tools: any[]) {
-    const getTools = await tools.map((tool: { TagTool: any[] }) => {
-      return tool.TagTool.map(
-        (item: {
-          id: any
-          title: any
-          link: any
-          description: any
-          createdAt: any
-          updatedAt: any
-        }) => {
-          return {
-            id: item.id,
-            title: item.title,
-            link: item.link,
-            description: item.description,
-            createdAt: item.createdAt,
-            updatedAt: item.updatedAt,
-          }
-        }
-      )
+    const getDicesConfig = [...new Set(tools)]
+    return getDicesConfig
+  }
+
+  async filterOneDrone(drones: any[], droneId: number) {
+    const drone = await drones.find((d: dronesInterface) => {
+      return d.id == droneId
     })
-
-    let getToolsConfig = await getTools.reduce(
-      (list: string | any[], sub: any) => list.concat(sub),
-      []
-    )
-    getToolsConfig = await getToolsConfig.filter((item: any) => {
-      return !this[JSON.stringify(item)] && (this[JSON.stringify(item)] = true)
-    }, Object.create(null))
-
-    return getToolsConfig
+    return drone
   }
 }
 
