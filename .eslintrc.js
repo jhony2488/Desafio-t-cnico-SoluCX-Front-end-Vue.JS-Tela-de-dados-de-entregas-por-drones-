@@ -4,13 +4,11 @@ module.exports = {
     node: true,
     jest: true,
     browser: true,
-    node: true,
     es6: true,
-    jest: true,
     jquery: true,
   },
   extends: [
-    'plugin:vue/vue3-essential',
+    'plugin:vue/essential',
     '@vue/airbnb',
     '@vue/typescript/recommended',
     'plugin:vue-a11y/base',
@@ -19,7 +17,7 @@ module.exports = {
   ],
   parserOptions: {
     allowImportExportEverywhere: true,
-    ecmaVersion: 2020,
+    ecmaVersion: 2018,
   },
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
