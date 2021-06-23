@@ -1,21 +1,26 @@
-import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
-import Home from '../views/Home.vue'
+import Vue from 'vue'
+import VueRouter, { RouteConfig } from 'vue-router'
 
-const routes: Array<RouteRecordRaw> = [
+Vue.use(VueRouter)
+
+const routes: Array<RouteConfig> = [
   {
     path: '/',
     name: 'Home',
-    component: Home,
+    component: () => import('../views/Home.vue'),
   },
   {
-    path: '/:id',
+    path: '/drone/:id',
     name: 'One Drone Information',
     component: () => import('../views/OneDrone.vue'),
   },
+  { path: '/404', name: 'Page Not Found', component: () => import('../views/OneDrone.vue') },
+  { path: '*', redirect: '/404' },
 ]
 
-const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
+const router = new VueRouter({
+  mode: 'history',
+  base: process.env.BASE_URL,
   routes,
 })
 
