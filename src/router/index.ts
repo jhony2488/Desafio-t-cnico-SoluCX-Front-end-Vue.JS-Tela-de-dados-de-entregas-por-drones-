@@ -14,7 +14,7 @@ const routes: Array<RouteConfig> = [
     name: 'One Drone Information',
     component: () => import('../views/OneDrone.vue'),
   },
-  { path: '/404', name: 'Page Not Found', component: () => import('../views/OneDrone.vue') },
+  { path: '/404', name: 'Page Not Found', component: () => import('../views/NotFound.vue') },
   { path: '*', redirect: '/404' },
 ]
 
