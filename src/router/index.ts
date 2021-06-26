@@ -10,7 +10,7 @@ const routes: Array<RouteConfig> = [
     component: () => import('../views/Home.vue'),
   },
   {
-    path: '/drone/:id',
+    path: '/drones/:id',
     name: 'One Drone Information',
     component: () => import('../views/OneDrone.vue'),
   },
