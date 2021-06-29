@@ -6,10 +6,8 @@ import { Filters } from '../../utils/filters'
 
 const FilterDrones = new Filters()
 
-@Module({ namespaced: true, name: 'drone' })
+@Module({ namespaced: true })
 class Drone extends VuexModule {
-  public name = ''
-
   public drones: Array<object> = []
 
   public dronesFilterSearch: Array<object> = []
@@ -18,21 +16,26 @@ class Drone extends VuexModule {
 
   public drone: object = {}
 
-  get getdrones() {
+  public filterSearch = false
+
+  get getDronesAll() {
     return this.drones
   }
 
-  get getdronesFilterSearch() {
+  get getDronesFilterSearch() {
     return this.dronesFilterSearch
+  }
+
+  get getDronesFilterPagination() {
+    return this.dronesFilterPagination
   }
 
   get getdrone() {
     return this.drone
   }
 
-  @Mutation
-  public setName(newName: string): void {
-    this.name = newName
+  get getDecisionFilterSearch() {
+    return this.filterSearch
   }
 
   @Mutation
@@ -41,9 +44,27 @@ class Drone extends VuexModule {
   }
 
   @Mutation
-  public getDronesFilter(dronesFilter: Array<object>): void {
-    const dronesFilterSearch = FilterDrones.filterDrones(this, dronesFilter)
+  public getDronesFilter(decision: {
+    id?: number
+    statusVoo?: string
+    statusDrone?: string
+    nameClient?: string
+    drones: Array<object>
+  }): void {
+    const dronesFilterSearch = FilterDrones.filterDrones(decision)
     this.dronesFilterSearch = dronesFilterSearch
+  }
+
+  @Mutation
+  public getDronesPagination(drones: {
+    dronesPagination: object[]
+    page: number | undefined
+    drones: object[]
+  }) {
+    const pagination = FilterDrones.filterPaginationDrone(drones.page, drones.drones, 20)
+    const dronesFilterPagination = pagination.drones
+
+    this.dronesFilterPagination = dronesFilterPagination
   }
 
   @Mutation
@@ -57,9 +78,9 @@ class Drone extends VuexModule {
     this.drone = drone
   }
 
-  @Action
-  public updateName(newName: string): void {
-    this.context.commit('setName', newName)
+  @Mutation
+  public getDecisionMutationFilterSearch(decision: boolean) {
+    this.filterSearch = decision
   }
 
   @Action
@@ -68,8 +89,23 @@ class Drone extends VuexModule {
   }
 
   @Action
-  async actionGetDronesFilter(dronesFilter: Array<object>) {
-    this.context.commit('getDronesFilter', dronesFilter)
+  async actionGetDronesFilter(decision: {
+    id?: number
+    statusVoo?: string
+    statusDrone?: string
+    nameClient?: string
+    drones: Array<object>
+  }) {
+    this.context.commit('getDronesFilter', decision)
+  }
+
+  @Action
+  async actionGetDronesPagination(drones: {
+    dronesPagination: object[]
+    page: number | undefined
+    drones: object[]
+  }) {
+    this.context.commit('getDronesPagination', drones)
   }
 
   @Action
@@ -79,7 +115,12 @@ class Drone extends VuexModule {
 
   @Action
   async actionOneDrone(drone: object) {
-    this.context.commit('getTagsFilterUnic', drone)
+    this.context.commit('getDrone', drone)
+  }
+
+  @Action
+  async actioDecisionFilterSearch(decision: boolean) {
+    this.context.commit('getDecisionMutationFilterSearch', decision)
   }
 }
 export default Drone

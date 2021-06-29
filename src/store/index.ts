@@ -1,6 +1,6 @@
 import Vuex from 'vuex'
 import Vue from 'vue'
-import Drone from '@/store/modules/drone'
+import Drone from './modules/drone'
 
 Vue.use(Vuex)
 
