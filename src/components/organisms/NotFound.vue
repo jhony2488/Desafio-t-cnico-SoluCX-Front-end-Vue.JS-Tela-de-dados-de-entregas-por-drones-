@@ -12,7 +12,7 @@
 import { Component, Vue } from 'vue-property-decorator'
 
 @Component({
-  name: 'NotFound',
+  name: 'NotFoundContent',
 })
 export default class OneDriveContent extends Vue {}
 </script>

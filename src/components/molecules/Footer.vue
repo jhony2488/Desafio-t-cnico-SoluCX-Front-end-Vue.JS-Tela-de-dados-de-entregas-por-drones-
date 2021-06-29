@@ -1,8 +1,7 @@
 <template>
   <div class="footer">
     <p>
-      Desafio técnico desenvolvido para avaliação das competências técnicas para a vaga de front end
-      Vue na SoluCX. Desenvolvido por
+      Desenvolvido por
       <a href="https://jhonyaraujo.netlify.app/">Jhonata Vinicius</a>
     </p>
   </div>
@@ -12,7 +11,7 @@
 import { Component, Vue } from 'vue-property-decorator'
 
 @Component({
-  name: 'Footer',
+  name: 'FooterContent',
 })
 export default class InputsFilters extends Vue {}
 </script>

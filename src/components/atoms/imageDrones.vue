@@ -6,7 +6,7 @@
 import { Vue, Prop, Component } from 'vue-property-decorator'
 
 @Component({
-  name: 'TableDrones',
+  name: 'ImageDroneOne',
 })
 export default class Inputs extends Vue {
   msg!: string
