@@ -1,18 +1,16 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/images/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
-  </div>
+  <OneDroneTemplate />
 </template>
 
 <script lang="ts">
-import { Options, Vue } from 'vue-class-component'
-import HelloWorld from '@/components/HelloWorld.vue' // @ is an alias to /src
+import { Component, Vue } from 'vue-property-decorator'
+import OneDroneTemplate from '../components/templates/OneDrone.vue'
 
-@Options({
+@Component({
+  name: 'OneDrone',
   components: {
-    HelloWorld,
+    OneDroneTemplate,
   },
 })
-export default class Home extends Vue {}
+export default class OneDrone extends Vue {}
 </script>

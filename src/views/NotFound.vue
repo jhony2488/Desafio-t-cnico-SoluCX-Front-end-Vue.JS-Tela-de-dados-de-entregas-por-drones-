@@ -1,15 +1,15 @@
 <template>
-  <HomeTemplate />
+  <NotFoundTemplate />
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import HomeTemplate from '../components/templates/Home.vue'
+import NotFoundTemplate from '../components/templates/NotFound.vue'
 
 @Component({
-  name: 'Home',
+  name: 'NotFound',
   components: {
-    HomeTemplate,
+    NotFoundTemplate,
   },
 })
 export default class Home extends Vue {}
