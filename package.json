@@ -10,6 +10,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "array.filter": "^0.1.6",
     "axios": "^0.21.1",
     "bootstrap": "^5.0.2",
     "bootstrap-vue": "^2.21.2",
