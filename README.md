@@ -17,8 +17,6 @@
 
 - [Demonstração da aplicação](#----demonstração-da-aplicação)
 
-- [Back-End Da Aplicação](#----back-end)
-
 - [Como usar](#como-usar)
 
   - [Pre Requisitos](#pré-requisitos)
@@ -37,7 +35,7 @@
   <!--te-->
 
 <h2  id="status-projeto">  
-	🚧   Desafio técnico | Front end (Vue.JS) 🚀 Em construção...  🚧
+	🚧  Desafio técnico | Front end (Vue.JS) 🚀 Em construção...  🚧
 </h2>
 
 <h2  id="features">  
@@ -45,28 +43,27 @@
 </h2>
 
 - [x] Configuração do gerenciamento de estado da aplicação
-- [x] Desenvolvimento dos testes automatizados
-- [] Configuração do SEO de cada página única
-- [] Configuração do SEO de todas as paginas
-- [] Configuração do gerenciamento de estado da aplicação
 - [] Configuração da acessibilidade no HTML das páginas da aplicação
 - [x] Configuração da acessibilidade no CSS das paginas da aplicação
 - [x] Configuração da acessibilidade no JavaScript das paginas da aplicação
-- [] Melhorar a performance de carregamento da aplicação, aplicando lazyload ,entre outras configuracoes importantes para a performamnce
+- [x] Melhorar a performance de carregamento da aplicação, aplicando recursos de carregamento lento e assincrono em componentes
 - [x] Suporte a o CSS para navegadores antigos
 - [x] Configuração dos Polyfill HTML5_SHIV para permitir o uso das tags HTML5 em navegadores que não suportam
 - [x] Configuração dos Polyfill respimage.js para permitir o uso de imagens responsivas em navegadores que não suportam
 - [x] Configuração dos Polyfill respond.js para permitir o uso de CSS3 Media Queries responsivos em navegadores que não suportam
 - [x] Configuração dos Polyfill selectivizr.js para permitir o uso de pseudo classes CSS3 em navegadores que não suportam
 - [] Feitura dos testes end to end
+- [] Feitura dos testes de componentes
 - [] Feitura dos testes unitarios
-- [] Tela de ver, navegar e pesquisar sobre todos os drones
-- [] Tela de pegar dados de um único drone
+- [x] Tela de ver, navegar e pesquisar sobre todos os drones
+- [x] Tela de pegar dados de um único drone
+- [x] Configurar página 404
+- [x] Criar página 404
 
 <h2  id="app-demo">  
   Demonstração da aplicação
 </h2>
-<a href="" align="center">Link Da Aplicação</a>
+<a href="desafio-soluc-front-end.netlify.app" align="center">Link Da Aplicação</a>
 
 <h2>Como usar</h2>
 
@@ -132,12 +129,11 @@ As seguintes ferramentas foram usadas na construção do projeto:
 - [Eslint](https://eslint.org/)
 - [Prettier](https://prettier.io/)
 
-
 <h2 id="tecnologias">🛠 Customize a configuração</h2>
 
 ### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
 
+See [Configuration Reference](https://cli.vuejs.org/config/).
 
 <h2 id="autor" align="center">Autor</h2>
 
@@ -162,4 +158,4 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 <h2 id="licenca">Licença</h2>
 
-<a href="https://github.com/jhony2488/VUTTR--FRONT-END/blob/master/LICENSE" align="center">MIT License</a>
+<a href="https://github.com/jhony2488/Desafio-tecnico-SoluCX-Front-end-Vue.JS-Tela-de-dados-de-entregas-por-drones/blob/master/LICENSE" align="center">GNU GENERAL PUBLIC LICENSE</a>
