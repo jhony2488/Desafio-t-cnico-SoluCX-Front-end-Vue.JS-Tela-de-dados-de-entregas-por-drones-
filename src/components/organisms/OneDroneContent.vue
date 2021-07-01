@@ -121,7 +121,7 @@
 import { Component, Vue } from 'vue-property-decorator'
 import axios from 'axios'
 import { namespace } from 'vuex-class'
-import ImageDrones from '../atoms/ImageDrones.vue'
+import ImageDrones from '@/components/atoms/ImageDrones.vue'
 
 const drone = namespace('Drone')
 
@@ -195,10 +195,6 @@ export default class OneDriveContent extends Vue {
   @drone.Getter
   // eslint-disable-next-line @typescript-eslint/ban-types
   public getdrone!: droneInterface
-
-  @drone.Getter
-  // eslint-disable-next-line @typescript-eslint/ban-types
-  public getDronesFilterPagination!: Array<object>
 
   @drone.Getter
   // eslint-disable-next-line @typescript-eslint/ban-types

@@ -106,7 +106,7 @@
                     min="0"
                     max="100"
                     :value="item.fly"
-                    data-tooltip="going"
+                    data-tooltip="coming"
                     :id="'customRange' + item.id"
                     disabled
                   />
@@ -123,7 +123,7 @@
                     min="0"
                     max="100"
                     :value="item.fly"
-                    data-tooltip="coming"
+                    data-tooltip="going"
                     :id="'customRange' + item.id"
                     disabled
                   />
@@ -191,7 +191,7 @@ export default class InputsFilters extends Vue {
 
   public baterryToolTip = false
 
-  public decisionPagination = false
+  public decisionPagination = true
 
   public perPage = 20
 
@@ -199,14 +199,6 @@ export default class InputsFilters extends Vue {
 
   public viewDrone(id: number): void {
     this.$router.push(`/drones/${id}`)
-  }
-
-  public decisionFilter(): void {
-    setInterval(() => {
-      if (this.getDecisionFilterSearch) {
-        this.drones = this.getDronesFilterSearch
-      }
-    }, 1000)
   }
 
   public async paginationGetDrones() {
@@ -220,31 +212,36 @@ export default class InputsFilters extends Vue {
       this.dronesAll = this.getDronesAll
     }
     console.log('jhony')
-    if (this.getDecisionFilterSearch === false) {
-      try {
-        const decision = FilterDrones.filterPaginationDrone(this.currentPage, this.dronesAll, 20)
-        console.log(decision)
-        if (this.drones === decision.drones) {
-          this.actionGetDronesPagination({
-            dronesPagination: this.drones,
-            page: this.currentPage,
-            drones: this.dronesAll,
-          })
-        } else {
-          const response = await axios.get(
-            `http://services.solucx.com.br/mock/drones?_page=${this.currentPage}&_limit=20&_sort=id&_order=asc`
-          )
-          this.actionGetDronesPagination({
-            dronesPagination: response.data,
-            page: this.currentPage,
-            drones: this.dronesAll,
-          })
-          this.drones = this.getDronesFilterPagination
+    setInterval(async () => {
+      if (this.getDecisionFilterSearch === false) {
+        try {
+          const decision = FilterDrones.filterPaginationDrone(this.dronesAll, this.currentPage, 20)
+          if (this.drones === decision.drones) {
+            this.actionGetDronesPagination({
+              dronesPagination: this.drones,
+              page: this.currentPage,
+              drones: this.dronesAll,
+            })
+          } else {
+            const response = await axios.get(
+              `http://services.solucx.com.br/mock/drones?_page=${this.currentPage}&_limit=20&_sort=id&_order=asc`
+            )
+            this.actionGetDronesPagination({
+              dronesPagination: response.data,
+              page: this.currentPage,
+              drones: this.dronesAll,
+            })
+            this.drones = this.getDronesFilterPagination
+          }
+        } catch (error) {
+          console.error(error)
         }
-      } catch (error) {
-        console.error(error)
+      } else {
+        this.drones = this.getDronesFilterSearch
+        console.log('drones filter:')
+        console.log(this.drones)
       }
-    }
+    }, 1000)
 
     return this.drones
   }
@@ -279,7 +276,10 @@ export default class InputsFilters extends Vue {
   /* eslint-disable class-methods-use-this */
   async created() {
     await this.paginationGetDrones()
-    await this.decisionFilter()
+    console.log('pagination decision')
+    console.log(this.getDecisionFilterSearch)
+    console.log('pagination decision 2')
+    console.log(this.decisionPagination)
   }
 }
 </script>
