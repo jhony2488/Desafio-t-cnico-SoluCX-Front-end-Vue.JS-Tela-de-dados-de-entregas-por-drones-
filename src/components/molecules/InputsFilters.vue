@@ -55,7 +55,14 @@ import { namespace } from 'vuex-class'
 import { Filters } from '@/utils/filters'
 import { Conversions } from '@/utils/conversions'
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const filter = require('array.filter')
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const find = require('object-array-filter')
+
 const FilterDrones = new Filters()
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const ConversionsDrones = new Conversions()
 
 const drone = namespace('Drone')
@@ -63,6 +70,7 @@ const drone = namespace('Drone')
   name: 'InputsFilters',
 })
 /* eslint-disable @typescript-eslint/ban-types */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export default class InputsFilters extends Vue {
   // eslint-disable-next-line @typescript-eslint/ban-types
   public option: Array<object> = []
@@ -71,29 +79,32 @@ export default class InputsFilters extends Vue {
 
   public name = ''
 
-  public currentyFly = 'Please select an status fly'
+  public currentyFly = ''
 
-  public status = 'Please select an status'
+  public status = ''
 
   public optionsFly = [
-    { value: 'Please select an status fly', text: 'Please select an status fly', disabled: true },
+    { value: '', text: 'Please select an status fly', disabled: false },
     { value: 'coming', text: 'Coming', disabled: false },
     { value: 'going', text: 'Going', disabled: false },
   ]
 
-  public optionStatus = [
-    { value: 'Please select an status', text: 'Please select an status fly', disabled: true },
-  ]
+  public optionStatus = [{ value: '', text: 'Please select an status fly', disabled: false }]
 
   public searchStatusMerge(): void {
-    const statusDrone = FilterDrones.mergeDicesInGet(this.getDronesAll)
+    setInterval(() => {
+      if (this.optionStatus.length === 1) {
+        const statusDrone = FilterDrones.mergeDicesInGet(this.getDronesAll)
 
-    statusDrone.forEach((s: string) => {
-      return this.optionStatus.push({ value: s, text: s, disabled: false })
-    })
+        statusDrone.forEach((s: string) => {
+          return this.optionStatus.push({ value: s, text: s, disabled: false })
+        })
+      }
+    }, 2000)
   }
 
-  public search(): void {
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+  public async search() {
     if (
       this.droneId != null ||
       this.droneId !== undefined ||
@@ -109,204 +120,229 @@ export default class InputsFilters extends Vue {
       this.status !== undefined ||
       this.status !== ''
     ) {
-      this.actioDecisionFilterSearch(true)
+      await this.actioDecisionFilterSearch(true)
       console.log('filter true')
       console.log(this.getDecisionFilterSearch)
-    } else {
-      this.actioDecisionFilterSearch(false)
+    }
+    if (this.droneId === '' && this.name === '' && this.currentyFly === '' && this.status === '') {
+      await this.actioDecisionFilterSearch(false)
       console.log('filter false')
+      console.log(this.getDecisionFilterSearch)
+    }
+    if (this.currentyFly === 'Please select an status fly') {
+      await this.actioDecisionFilterSearch(false)
+      console.log('filter false fly')
+      console.log(this.getDecisionFilterSearch)
+    }
+    if (this.status === 'Please select an status') {
+      await this.actioDecisionFilterSearch(false)
+      console.log('filter false fly')
       console.log(this.getDecisionFilterSearch)
     }
     // filters drones
     // filter drone id
-    if (
-      this.name == null ||
-      this.name === undefined ||
-      (this.name === '' && this.currentyFly == null) ||
-      this.currentyFly === undefined ||
-      this.currentyFly === 'Please select an status fly' ||
-      (this.currentyFly === '' && this.status == null) ||
-      this.status === undefined ||
-      this.status === ''
-    ) {
-      this.actionGetDronesFilter({
-        id:
-          typeof this.droneId === 'number'
-            ? this.droneId
-            : ConversionsDrones.StringInNumber(this.droneId),
-        // eslint-disable-next-line @typescript-eslint/ban-types
-        drones: this.getDronesAll,
-      })
-      console.log('search')
+    if (this.name === '' && this.currentyFly === '' && this.status === '') {
+      const searchFilter = await find.default(
+        {
+          id:
+            typeof this.droneId === 'number'
+              ? this.droneId
+              : ConversionsDrones.StringInNumber(this.droneId),
+        },
+        this.getDronesAll
+      )
+      const SearchFilterResolve = searchFilter
+
+      await this.actionGetDronesFilter(SearchFilterResolve)
+
+      console.log('search id')
+      console.log(SearchFilterResolve)
       console.log(this.getDronesFilterSearch)
     }
     // filter drone name
-    else if (
-      this.droneId != null ||
-      this.droneId !== undefined ||
-      (this.droneId !== '' && this.currentyFly == null) ||
-      this.currentyFly === undefined ||
-      this.currentyFly === 'Please select an status fly' ||
-      (this.currentyFly === '' && this.status == null) ||
-      this.status === undefined ||
-      this.status === ''
-    ) {
-      this.actionGetDronesFilter({
-        nameClient: ConversionsDrones.FirstCapitalLetterinaString(this.name),
-        // eslint-disable-next-line @typescript-eslint/ban-types
-        drones: this.getDronesAll,
-      })
-      console.log('search')
+    else if (this.droneId === '' && this.currentyFly === '' && this.status === '') {
+      const searchFilter = await find.default(
+        {
+          name: ConversionsDrones.FirstCapitalLetterinaString(this.name),
+        },
+        this.getDronesAll
+      )
+
+      const SearchFilterResolve = searchFilter
+      await this.actionGetDronesFilter(SearchFilterResolve)
+      console.log('search name')
+      console.log(SearchFilterResolve)
       console.log(this.getDronesFilterSearch)
     }
     // filter drone fly
-    else if (
-      this.droneId != null ||
-      this.droneId !== undefined ||
-      (this.droneId !== '' && this.name == null) ||
-      this.name === undefined ||
-      (this.name === '' && this.status == null) ||
-      this.status === undefined ||
-      this.status === ''
-    ) {
-      this.actionGetDronesFilter({
-        statusVoo: this.currentyFly,
-        // eslint-disable-next-line @typescript-eslint/ban-types
-        drones: this.getDronesAll,
+    else if (this.droneId === '' && this.name === '' && this.status === '') {
+      // eslint-disable-next-line no-shadow
+      const searchFilter = await this.getDronesAll.filter((drone: any) => {
+        if (this.currentyFly === 'going') {
+          return drone.fly >= 1 && drone.fly <= 50
+        }
+        return drone.fly > 50 && drone.fly <= 100
       })
-      console.log('search')
+
+      const SearchFilterResolve = searchFilter
+      await this.actionGetDronesFilter(SearchFilterResolve)
+      console.log('search fly')
+      console.log(SearchFilterResolve)
       console.log(this.getDronesFilterSearch)
     }
     // filter drone status
-    else if (
-      this.droneId != null ||
-      this.droneId !== undefined ||
-      (this.droneId !== '' && this.name == null) ||
-      this.name === undefined ||
-      (this.name === '' && this.currentyFly == null) ||
-      this.currentyFly === undefined ||
-      this.currentyFly === 'Please select an status fly' ||
-      this.currentyFly === ''
-    ) {
-      this.actionGetDronesFilter({
-        statusDrone: this.status,
-        // eslint-disable-next-line @typescript-eslint/ban-types
-        drones: this.getDronesAll,
-      })
-      console.log('search')
+    else if (this.droneId === '' && this.name === '' && this.currentyFly === '') {
+      const searchFilter = await find.default(
+        {
+          status: this.status,
+        },
+        this.getDronesAll
+      )
+
+      const SearchFilterResolve = searchFilter
+      await this.actionGetDronesFilter(SearchFilterResolve)
+      console.log('search name')
+      console.log(SearchFilterResolve)
       console.log(this.getDronesFilterSearch)
     }
+
     // filter drone id and name
-    else if (
-      this.currentyFly == null ||
-      this.currentyFly === undefined ||
-      this.currentyFly === 'Please select an status fly' ||
-      (this.currentyFly === '' && this.status == null) ||
-      this.status === undefined ||
-      this.status === ''
-    ) {
-      this.actionGetDronesFilter({
-        id:
-          typeof this.droneId === 'number'
-            ? this.droneId
-            : ConversionsDrones.StringInNumber(this.droneId),
-        nameClient: ConversionsDrones.FirstCapitalLetterinaString(this.name),
-        // eslint-disable-next-line @typescript-eslint/ban-types
-        drones: this.getDronesAll,
-      })
-      console.log('search')
+    else if (this.currentyFly === '' && this.status === '') {
+      const searchFilter = await filter(
+        {
+          id:
+            typeof this.droneId === 'number'
+              ? this.droneId
+              : ConversionsDrones.StringInNumber(this.droneId),
+          name: ConversionsDrones.FirstCapitalLetterinaString(this.name),
+        },
+        this.getDronesAll
+      )
+
+      const SearchFilterResolve = searchFilter
+      await this.actionGetDronesFilter(SearchFilterResolve)
+      console.log('search id and name')
+      console.log(SearchFilterResolve)
       console.log(this.getDronesFilterSearch)
     }
     // filter drone id and status
-    else if (
-      this.name == null ||
-      this.name === undefined ||
-      (this.name === '' && this.currentyFly == null) ||
-      this.currentyFly === undefined ||
-      this.currentyFly === '' ||
-      this.currentyFly === 'Please select an status fly'
-    ) {
-      this.actionGetDronesFilter({
-        id:
-          typeof this.droneId === 'number'
-            ? this.droneId
-            : ConversionsDrones.StringInNumber(this.droneId),
-        statusDrone: this.status,
-        // eslint-disable-next-line @typescript-eslint/ban-types
-        drones: this.getDronesAll,
-      })
-      console.log('search')
+    else if (this.name === '' && this.currentyFly === '') {
+      const searchFilter = await filter(
+        {
+          id:
+            typeof this.droneId === 'number'
+              ? this.droneId
+              : ConversionsDrones.StringInNumber(this.droneId),
+          status: this.status,
+        },
+        this.getDronesAll
+      )
+
+      const SearchFilterResolve = searchFilter
+      await this.actionGetDronesFilter(SearchFilterResolve)
+      console.log('search id and status')
+      console.log(SearchFilterResolve)
       console.log(this.getDronesFilterSearch)
     }
     // filter drone id and fly
-    else if (
-      this.name == null ||
-      this.name === undefined ||
-      (this.name === '' && this.status == null) ||
-      this.status === undefined ||
-      this.status === ''
-    ) {
-      this.actionGetDronesFilter({
-        id:
+    else if (this.name === '' && this.status === '') {
+      // eslint-disable-next-line no-shadow
+      const searchFilter = await this.getDronesAll.filter((drone: any) => {
+        const id =
           typeof this.droneId === 'number'
             ? this.droneId
-            : ConversionsDrones.StringInNumber(this.droneId),
-        statusVoo: this.currentyFly,
-
-        // eslint-disable-next-line @typescript-eslint/ban-types
-        drones: this.getDronesAll,
+            : ConversionsDrones.StringInNumber(this.droneId)
+        if (this.currentyFly === 'going') {
+          return drone.fly >= 1 && drone.fly <= 50 && drone.id === id
+        }
+        return drone.fly > 50 && drone.fly <= 100 && drone.id === id
       })
-      console.log('search')
+
+      const SearchFilterResolve = searchFilter
+      await this.actionGetDronesFilter(SearchFilterResolve)
+      console.log('search id and fly')
+      console.log(SearchFilterResolve)
       console.log(this.getDronesFilterSearch)
     }
     // filter drone id and name and fly
-    else if (this.status == null || this.status === undefined || this.status === '') {
-      this.actionGetDronesFilter({
-        id:
+    else if (this.status === '') {
+      // eslint-disable-next-line no-shadow
+      const searchFilter = await this.getDronesAll.filter((drone: any) => {
+        const id =
           typeof this.droneId === 'number'
             ? this.droneId
-            : ConversionsDrones.StringInNumber(this.droneId),
-        statusVoo: this.currentyFly,
-        nameClient: ConversionsDrones.FirstCapitalLetterinaString(this.name),
-
-        // eslint-disable-next-line @typescript-eslint/ban-types
-        drones: this.getDronesAll,
+            : ConversionsDrones.StringInNumber(this.droneId)
+        if (this.currentyFly === 'going') {
+          return (
+            drone.fly >= 1 &&
+            drone.fly <= 50 &&
+            drone.id === id &&
+            drone.name === ConversionsDrones.FirstCapitalLetterinaString(this.name)
+          )
+        }
+        return (
+          drone.fly > 50 &&
+          drone.fly <= 100 &&
+          drone.id === id &&
+          drone.name === ConversionsDrones.FirstCapitalLetterinaString(this.name)
+        )
       })
-      console.log('search')
+
+      const SearchFilterResolve = searchFilter
+      await this.actionGetDronesFilter(SearchFilterResolve)
+      console.log('search id and fly and name')
+      console.log(SearchFilterResolve)
       console.log(this.getDronesFilterSearch)
     }
     // filter drone id and name and status
-    else if (
-      this.currentyFly == null ||
-      this.currentyFly === undefined ||
-      this.currentyFly === '' ||
-      this.currentyFly === 'Please select an status fly'
-    ) {
-      this.actionGetDronesFilter({
-        id:
+    else if (this.currentyFly === '') {
+      // eslint-disable-next-line no-shadow
+      const searchFilter = await this.getDronesAll.filter((drone: any) => {
+        const id =
           typeof this.droneId === 'number'
             ? this.droneId
-            : ConversionsDrones.StringInNumber(this.droneId),
-        statusDrone: this.status,
-        nameClient: ConversionsDrones.FirstCapitalLetterinaString(this.name),
-        // eslint-disable-next-line @typescript-eslint/ban-types
-        drones: this.getDronesAll,
+            : ConversionsDrones.StringInNumber(this.droneId)
+        return (
+          drone.status === this.status &&
+          drone.id === id &&
+          drone.name === ConversionsDrones.FirstCapitalLetterinaString(this.name)
+        )
       })
-      console.log('search')
+
+      const SearchFilterResolve = searchFilter
+      await this.actionGetDronesFilter(SearchFilterResolve)
+      console.log('search id and name and status')
+      console.log(SearchFilterResolve)
       console.log(this.getDronesFilterSearch)
     } else {
-      this.actionGetDronesFilter({
-        id:
+      // eslint-disable-next-line no-shadow
+      const searchFilter = await this.getDronesAll.filter((drone: any) => {
+        const id =
           typeof this.droneId === 'number'
             ? this.droneId
-            : ConversionsDrones.StringInNumber(this.droneId),
-        statusVoo: this.currentyFly,
-        nameClient: ConversionsDrones.FirstCapitalLetterinaString(this.name),
-        statusDrone: this.status,
-        // eslint-disable-next-line @typescript-eslint/ban-types
-        drones: this.getDronesAll,
+            : ConversionsDrones.StringInNumber(this.droneId)
+        if (this.currentyFly === 'going') {
+          return (
+            drone.status === this.status &&
+            drone.fly >= 1 &&
+            drone.fly <= 50 &&
+            drone.id === id &&
+            drone.name === ConversionsDrones.FirstCapitalLetterinaString(this.name)
+          )
+        }
+        return (
+          drone.status === this.status &&
+          drone.fly > 50 &&
+          drone.fly <= 100 &&
+          drone.id === id &&
+          drone.name === ConversionsDrones.FirstCapitalLetterinaString(this.name)
+        )
       })
-      console.log('search')
+
+      const SearchFilterResolve = searchFilter
+      await this.actionGetDronesFilter(SearchFilterResolve)
+      console.log('search id and fly and name and status')
+      console.log(SearchFilterResolve)
       console.log(this.getDronesFilterSearch)
     }
   }
@@ -321,21 +357,14 @@ export default class InputsFilters extends Vue {
   public getDronesAll!: Array<object>
 
   @drone.Action
-  public actionGetDronesFilter!: (decision: {
-    id?: number
-    statusVoo?: string
-    statusDrone?: string
-    nameClient?: string
-    // eslint-disable-next-line @typescript-eslint/ban-types
-    drones: Array<object>
-  }) => void
+  public actionGetDronesFilter!: (dronesFilter: Array<object>) => void
 
   @drone.Action
   public actioDecisionFilterSearch!: (drones: boolean) => void
 
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-  async mounted() {
-    await this.searchStatusMerge()
+  created() {
+    this.searchStatusMerge()
   }
 }
 </script>
