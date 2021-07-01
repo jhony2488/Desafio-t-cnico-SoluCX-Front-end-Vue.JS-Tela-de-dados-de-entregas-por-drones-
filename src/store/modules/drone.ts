@@ -44,15 +44,8 @@ class Drone extends VuexModule {
   }
 
   @Mutation
-  public getDronesFilter(decision: {
-    id?: number
-    statusVoo?: string
-    statusDrone?: string
-    nameClient?: string
-    drones: Array<object>
-  }): void {
-    const dronesFilterSearch = FilterDrones.filterDrones(decision)
-    this.dronesFilterSearch = dronesFilterSearch
+  public getDronesFilter(dronesFilter: Array<object>): void {
+    this.dronesFilterSearch = dronesFilter
   }
 
   @Mutation
@@ -61,7 +54,7 @@ class Drone extends VuexModule {
     page: number | undefined
     drones: object[]
   }) {
-    const pagination = FilterDrones.filterPaginationDrone(drones.page, drones.drones, 20)
+    const pagination = FilterDrones.filterPaginationDrone(drones.drones, drones.page, 20)
     const dronesFilterPagination = pagination.drones
 
     this.dronesFilterPagination = dronesFilterPagination
@@ -89,14 +82,8 @@ class Drone extends VuexModule {
   }
 
   @Action
-  async actionGetDronesFilter(decision: {
-    id?: number
-    statusVoo?: string
-    statusDrone?: string
-    nameClient?: string
-    drones: Array<object>
-  }) {
-    this.context.commit('getDronesFilter', decision)
+  async actionGetDronesFilter(dronesFilter: Array<object>) {
+    this.context.commit('getDronesFilter', dronesFilter)
   }
 
   @Action
