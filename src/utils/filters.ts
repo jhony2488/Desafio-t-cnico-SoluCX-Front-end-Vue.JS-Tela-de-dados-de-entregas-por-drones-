@@ -8,155 +8,6 @@ interface dronesInterface {
 }
 
 class Filters {
-  filterDrones(
-    decision: {
-      id?: number
-      statusVoo?: string
-      statusDrone?: string
-      nameClient?: string
-      drones: Array<object>
-    }
-  ) {
-
-    const dronesFilterSearch =  decision.drones.filter((d:any) => {
-      if (decision.id && !decision.statusVoo && !decision.statusDrone && !decision.nameClient) {
-        return d.id==decision.id
-      }
-      if (
-        !decision.id &&
-        decision.statusVoo == 'going' &&
-        !decision.statusDrone &&
-        !decision.nameClient
-      ) {
-        return d.fly >= 0 && d.fly <= 50
-      }
-      if (
-        !decision.id &&
-        decision.statusVoo == 'coming' &&
-        !decision.statusDrone &&
-        !decision.nameClient
-      ) {
-        return d.fly >= 51 && d.fly <= 100
-      }
-      if (
-        !decision.id &&
-        !decision.statusVoo &&
-        !decision.statusDrone &&
-        decision.nameClient
-      ) {
-        return d.name == decision.nameClient
-      }
-      if (
-        !decision.id &&
-        !decision.statusVoo &&
-        decision.statusDrone &&
-        !decision.nameClient
-      ) {
-        return d.status == decision.statusDrone
-      }
-      if (
-        decision.id &&
-        decision.statusVoo=='going' &&
-        !decision.statusDrone &&
-        !decision.nameClient
-      ) {
-        return d.fly >= 0 && d.fly <= 50  && d.id == decision.id
-      }
-      if (
-        decision.id &&
-        decision.statusVoo=='coming' &&
-        !decision.statusDrone &&
-        !decision.nameClient
-      ) {
-        return d.fly >= 51 && d.fly <= 100  && d.id == decision.id
-      }
-      if (
-        decision.id &&
-        !decision.statusVoo &&
-        decision.statusDrone &&
-        ! decision.nameClient
-      ) {
-        return d.status ==  decision.statusDrone && d.id ==  decision.id
-      }
-      if (
-        decision.id &&
-        ! decision.statusVoo &&
-        ! decision.statusDrone &&
-        decision.nameClient
-      ) {
-        return d.name ==  decision.nameClient && d.id ==  decision.id
-      }
-      if (
-        decision.id &&
-        decision.statusVoo =='going' &&
-        decision.statusDrone &&
-        ! decision.nameClient
-      ) {
-        return (
-          d.fly >= 0 && d.fly <= 50 && d.id == decision.id && d.status == decision.statusDrone
-        )
-      }
-      if (
-        decision.id &&
-        decision.statusVoo=='coming' &&
-        decision.statusDrone &&
-        ! decision.nameClient
-      ) {
-        return (
-          d.fly >= 51 && d.fly <= 100 && d.id == decision.id && d.status == decision.statusDrone
-        )
-      }
-      if (
-        decision.id &&
-        decision.statusVoo=='going' &&
-        !decision.statusDrone &&
-        decision.nameClient
-      ) {
-        return (
-          d.fly >= 0 && d.fly <= 50  && d.id == decision.id && d.name == decision.nameClient
-        )
-      }
-      if (
-        decision.id &&
-        decision.statusVoo=='coming'  &&
-        !decision.statusDrone &&
-        decision.nameClient
-      ) {
-        return (
-          d.fly >= 51 && d.fly <= 100   && d.id == decision.id && d.name == decision.nameClient
-        )
-      }
-      if (
-        decision.id &&
-        decision.statusVoo=='going'  &&
-        decision.statusDrone &&
-        decision.nameClient
-      ) {
-        return (
-          d.fly >= 0 && d.fly <= 50 &&
-          d.id == decision.id &&
-          d.name == decision.nameClient &&
-          d.status == decision.statusDrone
-        )
-      }
-      if (
-        decision.id &&
-        decision.statusVoo=='coming' &&
-        decision.statusDrone &&
-        decision.nameClient
-      ) {
-        return (
-          d.fly >= 51 && d.fly <= 100 &&
-          d.id == decision.id &&
-          d.name == decision.nameClient &&
-          d.status == decision.statusDrone
-        )
-      }
-
-      return 0
-    })
-    return dronesFilterSearch
-  }
 
   mergeDicesInGet(merge: any[]) {
     const getStatus = merge.map((m) => {
@@ -172,7 +23,7 @@ class Filters {
     })
     return drone
   }
-  filterPaginationDrone(currentPage: number = 1, drones: object[], pageSize: number = 20) {
+  filterPaginationDrone(drones: object[],currentPage: number = 1,  pageSize: number = 20) {
     const AllItems: number = drones.length
     const maxPages = Math.round(drones.length / pageSize)
     // calculate total pages
@@ -218,11 +69,12 @@ class Filters {
 
     let contentItems: Array<object> = []
     if (currentPage == 1) {
-      contentItems = drones.slice(0, 20)
+      contentItems = drones.slice(0, pageSize)
     } else {
       const pageCall = currentPage - 1
       contentItems = drones.slice(pageSize * pageCall, pageSize + pageSize * pageCall)
-      console.log(20 * pageCall)
+      console.log('pagesize:')
+      console.log(pageSize * pageCall)
     }
     // return object with all pager properties required by the view
     return {
