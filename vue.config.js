@@ -23,4 +23,5 @@ module.exports = {
 
     config.plugins.push(new ForkTsCheckerWebpackPlugin(forkTsCheckerOptions))
   },
+  lintOnSave: true,
 }

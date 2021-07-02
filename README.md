@@ -15,7 +15,7 @@
 
 - [Features](#----features)
 
-- [Demonstração da aplicação](#----demonstração-da-aplicação)
+- [Pre View](#----features)
 
 - [Como usar](#como-usar)
 
@@ -59,11 +59,6 @@
 - [x] Feitura Tela de pegar dados de um único drone
 - [x] Configurar página 404
 - [x] Criar página 404
-
-<h2  id="app-demo">  
-  Demonstração da aplicação
-</h2>
-<a href="desafio-soluc-front-end.netlify.app" align="center">Link Da Aplicação</a>
 
 <h2>Como usar</h2>
 
