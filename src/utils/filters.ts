@@ -8,7 +8,6 @@ interface dronesInterface {
 }
 
 class Filters {
-
   mergeDicesInGet(merge: any[]) {
     const getStatus = merge.map((m) => {
       return m.status
@@ -73,8 +72,6 @@ class Filters {
     } else {
       const pageCall = currentPage - 1
       contentItems = drones.slice(pageSize * pageCall, pageSize + pageSize * pageCall)
-      console.log('pagesize:')
-      console.log(pageSize * pageCall)
     }
     // return object with all pager properties required by the view
     return {
