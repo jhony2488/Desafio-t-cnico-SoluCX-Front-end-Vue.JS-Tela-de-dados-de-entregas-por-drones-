@@ -16,6 +16,7 @@
     "bootstrap-vue": "^2.21.2",
     "core-js": "^3.6.5",
     "dotenv": "^10.0.0",
+    "eslint-plugin-vue-a11y": "^0.0.31",
     "faltu": "^0.1.0",
     "gulp-autoprefixer": "^8.0.0",
     "gulp-clean": "^0.4.0",
