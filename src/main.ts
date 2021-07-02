@@ -11,7 +11,11 @@ import './assets/css/main.css'
 
 Vue.use(BootstrapVue)
 
-Vue.config.productionTip = false
+if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test') {
+  Vue.config.productionTip = false
+} else {
+  Vue.config.productionTip = true
+}
 
 new Vue({
   router,

@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
+    "serve": "NODE_ENV=development vue-cli-service serve",
     "build": "vue-cli-service build",
-    "test:unit": "vue-cli-service test:unit",
+    "test:unit": "NODE_ENV=test vue-cli-service test:unit",
     "test": "NODE_ENV=test jest --detectOpenHandles",
     "lint": "vue-cli-service lint"
   },
