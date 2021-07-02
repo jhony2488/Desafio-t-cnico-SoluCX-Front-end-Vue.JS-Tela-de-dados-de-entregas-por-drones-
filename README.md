@@ -52,8 +52,6 @@
 - [x] Configuração dos Polyfill respimage.js para permitir o uso de imagens responsivas em navegadores que não suportam
 - [x] Configuração dos Polyfill respond.js para permitir o uso de CSS3 Media Queries responsivos em navegadores que não suportam
 - [x] Configuração dos Polyfill selectivizr.js para permitir o uso de pseudo classes CSS3 em navegadores que não suportam
-- [] Feitura dos testes end to end
-- [] Feitura dos testes de componentes
 - [x] Feitura dos testes unitarios
 - [x] Feitura da Tela de ver, navegar e pesquisar sobre todos os drones
 - [x] Feitura Tela de pegar dados de um único drone
