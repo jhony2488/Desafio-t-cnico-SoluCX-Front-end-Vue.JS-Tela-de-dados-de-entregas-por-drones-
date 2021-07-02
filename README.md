@@ -15,8 +15,6 @@
 
 - [Features](#----features)
 
-- [Pre View](#----features)
-
 - [Como usar](#como-usar)
 
   - [Pre Requisitos](#pré-requisitos)
