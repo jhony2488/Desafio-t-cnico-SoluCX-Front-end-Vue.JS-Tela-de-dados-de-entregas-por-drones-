@@ -1,5 +1,11 @@
 <template>
-  <b-avatar variant="info" :src="src" :size="size"></b-avatar>
+  <b-avatar
+    variant="info"
+    :src="src"
+    :size="size"
+    :aria-label="'drone de ' + name"
+    :alt="'drone de ' + name"
+  ></b-avatar>
 </template>
 
 <script lang="ts">
@@ -14,6 +20,8 @@ export default class Inputs extends Vue {
   @Prop({ type: String }) readonly src: string | undefined
 
   @Prop({ type: String }) readonly size: string | undefined
+
+  @Prop({ type: String }) readonly name: string | undefined
 }
 </script>
 

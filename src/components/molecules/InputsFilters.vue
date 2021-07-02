@@ -1,5 +1,5 @@
 <template>
-  <div class="container grid-4">
+  <div class="container grid-4" role="search inputs">
     <b-form-group id="input-group-1" label="Drone ID" label-size="lg" label-for="input-1">
       <b-form-input
         id="input-1"
@@ -7,6 +7,7 @@
         placeholder="Example: 1"
         required
         @blur="search()"
+        aria-describedby="input of search drones per id"
         v-model="droneId"
       ></b-form-input>
     </b-form-group>
@@ -18,6 +19,7 @@
         placeholder="Your Name"
         required
         @blur="search()"
+        aria-describedby="input of search drones per name"
         v-model="name"
       ></b-form-input>
     </b-form-group>
@@ -31,6 +33,7 @@
         @blur="search()"
         @change="search()"
         v-model="currentyFly"
+        aria-describedby="input of search drones per status fly"
       >
       </b-form-select>
     </b-form-group>
@@ -42,6 +45,7 @@
         :options="optionStatus"
         @blur="search()"
         @change="search()"
+        aria-describedby="input of search drones per status of drone"
         v-model="status"
       >
       </b-form-select>

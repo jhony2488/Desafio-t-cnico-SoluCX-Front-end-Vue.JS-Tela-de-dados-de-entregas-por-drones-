@@ -1,5 +1,5 @@
 <template>
-  <section class="not-found">
+  <section class="not-found" role="not found page">
     <div class="not-found-wrapper">
       <p class="err">Error <span>404</span></p>
       <p>Page Not Found</p>

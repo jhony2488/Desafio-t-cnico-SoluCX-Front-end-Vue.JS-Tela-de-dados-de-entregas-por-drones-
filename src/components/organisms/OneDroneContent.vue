@@ -1,5 +1,5 @@
 <template>
-  <section class="onde-drone">
+  <section class="onde-drone" role="drone">
     <div class="onde-drone-wrapper">
       <ImageDrones size="240px" :src="item.image" />
       <h1>{{ item.name }}</h1>
@@ -121,7 +121,7 @@
 import { Component, Vue } from 'vue-property-decorator'
 import axios from 'axios'
 import { namespace } from 'vuex-class'
-import ImageDrones from '@/components/atoms/ImageDrones.vue'
+import ImageDrones from '../atoms/ImageDrones.vue'
 
 const drone = namespace('Drone')
 

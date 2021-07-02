@@ -1,5 +1,7 @@
 <template>
-  <NotFound />
+  <main>
+    <NotFound />
+  </main>
 </template>
 
 <script lang="ts">

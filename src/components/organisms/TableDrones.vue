@@ -1,6 +1,6 @@
 <template>
   <section class="container height-100vh">
-    <table class="table table-hover table-responsive" id="drones">
+    <table class="table table-hover table-responsive" id="drones" role="drones">
       <thead>
         <tr>
           <th scope="col">DRONE</th>

@@ -1,5 +1,5 @@
 <template>
-  <div class="footer">
+  <div class="footer" role="footer">
     <p>
       Desenvolvido por
       <a href="https://jhonyaraujo.netlify.app/">Jhonata Vinicius</a>
