@@ -1,7 +1,13 @@
 <template>
   <section class="onde-drone" role="drone">
     <div class="onde-drone-wrapper">
-      <ImageDrones size="240px" :src="item.image" />
+      <b-avatar
+        variant="info"
+        :src="item.image"
+        size="240px"
+        :aria-label="'drone de ' + item.name"
+        :alt="'drone de ' + item.name"
+      ></b-avatar>
       <h1>{{ item.name }}</h1>
       <p>{{ item.address }}</p>
       <div class="batteries">
@@ -121,7 +127,6 @@
 import { Component, Vue } from 'vue-property-decorator'
 import axios from 'axios'
 import { namespace } from 'vuex-class'
-import ImageDrones from '../atoms/ImageDrones.vue'
 
 const drone = namespace('Drone')
 
@@ -131,9 +136,6 @@ interface droneInterface {
 
 @Component({
   name: 'OneDriveContent',
-  components: {
-    ImageDrones,
-  },
 })
 export default class OneDriveContent extends Vue {
   // eslint-disable-next-line @typescript-eslint/ban-types
