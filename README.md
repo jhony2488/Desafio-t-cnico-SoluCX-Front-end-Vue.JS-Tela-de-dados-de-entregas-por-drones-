@@ -2,7 +2,7 @@
    Desafio técnico | Front end (Vue.JS)
 </h1>
 
-<p align="center">🚀 O objetivo desta avaliação é criar uma tela de dados de entregas por drones.</p>
+<p align="center">🚀 O objetivo desta avaliação é criar telas de dados de entregas por drones.</p>
 
 <h2 id="tabela-de-conteudo">Tabela de conteúdos</h2>
 <!--ts-->
@@ -43,7 +43,7 @@
 </h2>
 
 - [x] Configuração do gerenciamento de estado da aplicação
-- [] Configuração da acessibilidade no HTML das páginas da aplicação
+- [x] Configuração da acessibilidade no HTML das páginas da aplicação
 - [x] Configuração da acessibilidade no CSS das paginas da aplicação
 - [x] Configuração da acessibilidade no JavaScript das paginas da aplicação
 - [x] Melhorar a performance de carregamento da aplicação, aplicando recursos de carregamento lento e assincrono em componentes
@@ -54,9 +54,9 @@
 - [x] Configuração dos Polyfill selectivizr.js para permitir o uso de pseudo classes CSS3 em navegadores que não suportam
 - [] Feitura dos testes end to end
 - [] Feitura dos testes de componentes
-- [] Feitura dos testes unitarios
-- [x] Tela de ver, navegar e pesquisar sobre todos os drones
-- [x] Tela de pegar dados de um único drone
+- [x] Feitura dos testes unitarios
+- [x] Feitura da Tela de ver, navegar e pesquisar sobre todos os drones
+- [x] Feitura Tela de pegar dados de um único drone
 - [x] Configurar página 404
 - [x] Criar página 404
 
